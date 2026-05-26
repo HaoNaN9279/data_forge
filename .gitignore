@@ -1,0 +1,29 @@
+# Virtual environment
+.venv/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Cache directories
+.pytest_cache/
+.ruff_cache/
+
+# OpenCode internal
+.omo/
+
+# Resources (API keys, workflows)
+src/data_forge/resources/
+
+# Distribution
+dist/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
