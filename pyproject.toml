@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "data-forge"
-version = "0.1.0"
-description = "AI training data pipeline toolkit — forge image datasets, captions, and synthetic data with LLMs and ComfyUI."
+version = "0.2.0"
+description = "AI training data pipeline toolkit — MCP server + CLI for image processing, caption management, LLM integration, and ComfyUI."
 readme = "README.md"
 license = { text = "MIT" }
 requires-python = ">=3.12"
@@ -24,6 +24,7 @@ classifiers = [
 ]
 
 dependencies = [
+    "mcp>=1.12.0",
     "onnxruntime>=1.26.0",
     "openai>=2.38.0",
     "pillow>=12.2.0",
@@ -40,6 +41,7 @@ rembg = [
 
 [project.scripts]
 data-forge = "data_forge:main"
+data-forge-mcp = "data_forge.mcp.server:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/data_forge"]

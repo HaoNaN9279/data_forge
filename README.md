@@ -54,6 +54,55 @@ pip install -e ".[rembg]"
 uv run data-forge
 ```
 
+### MCP Server
+
+DataForge includes a full MCP (Model Context Protocol) server exposing all tools as MCP tools. Connect it to any MCP-compatible client (Claude Desktop, Cline, Cursor, etc.).
+
+**Quick start:**
+
+```bash
+uv run data-forge-mcp
+```
+
+**Client configuration:**
+
+```json
+{
+  "mcpServers": {
+    "data-forge": {
+      "command": "uvx",
+      "args": ["data-forge-mcp"]
+    }
+  }
+}
+```
+
+Or with a local clone:
+
+```json
+{
+  "mcpServers": {
+    "data-forge": {
+      "command": "uv",
+      "args": ["run", "--directory", "/path/to/DataForge", "data-forge-mcp"]
+    }
+  }
+}
+```
+
+**Available MCP Tools (24)**
+
+| Category | Tools |
+|---|---|
+| **Resize** | `resize_images` |
+| **Background Removal** | `remove_background`, `remove_background_batch` |
+| **Captions** | `caption_list`, `caption_read`, `caption_read_all`, `caption_search`, `caption_batch_replace`, `caption_export`, `caption_import`, `caption_stats`, `caption_deduplicate` |
+| **LLM (Cloud)** | `llm_chat`, `llm_describe_image`, `llm_batch_chat`, `llm_batch_describe_images` |
+| **Ollama (Local)** | `ollama_generate`, `ollama_list_models`, `ollama_describe_image`, `ollama_batch_generate`, `ollama_batch_describe_images` |
+| **ComfyUI** | `comfyui_status`, `comfyui_run_workflow`, `comfyui_run_batch` |
+
+All tools return structured JSON with `status` ("ok"/"error"), `message`, and tool-specific data.
+
 ### Programmatic
 
 ```python

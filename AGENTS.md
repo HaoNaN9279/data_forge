@@ -15,6 +15,16 @@ DataForge is a Python toolkit for building AI training datasets. It provides too
 - Check each tool's docstring for usage instructions, parameter descriptions, and examples.
 - Available tools: `caption`, `comfyui`, `llm`, `ollama`, `remove_bg`, `resize`.
 
+### MCP Tool Server
+
+DataForge ships as an MCP (Model Context Protocol) server. AI agents running in MCP-compatible hosts (Claude Desktop, Cursor, Cline) can invoke DataForge tools directly through structured tool calls — no code import needed.
+
+- Start with `uv run data-forge-mcp` (stdio transport).
+- 24 MCP tools namespaced by domain: `caption_*`, `llm_*`, `ollama_*`, `comfyui_*`.
+- All tools return structured JSON with `status` ("ok"/"error") and tool-specific data.
+- Configure via the host's `mcpServers` using `uvx data-forge-mcp` as the launcher.
+- The MCP server source is at `src/data_forge/mcp/server.py` (FastMCP).
+
 ### 2. Invoking Tools
 
 Tools are plain Python functions. Import and call them directly:
