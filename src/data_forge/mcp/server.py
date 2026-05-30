@@ -20,6 +20,7 @@ Client configuration (e.g., Claude Desktop):
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -665,7 +666,10 @@ def comfyui_run_batch(
 
 def main() -> None:
     """Run the DataForge MCP server via stdio transport."""
-    mcp.run(transport="stdio")
+    try:
+        mcp.run(transport="stdio")
+    except (ValueError, EOFError, BrokenPipeError):
+        sys.exit(0)
 
 
 if __name__ == "__main__":
