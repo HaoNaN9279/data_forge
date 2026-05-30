@@ -20,6 +20,10 @@ src/data_forge/resources/
 dist/
 *.egg-info/
 
+# PyInstaller
+build/
+*.spec
+
 # Release scripts
 create_release.py
 create_release.ps1
