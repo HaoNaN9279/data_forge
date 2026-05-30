@@ -23,6 +23,7 @@ dist/
 # PyInstaller
 build/
 *.spec
+!data-forge.spec
 
 # Release scripts
 create_release.py

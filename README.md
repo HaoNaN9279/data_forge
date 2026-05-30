@@ -19,12 +19,38 @@ DataForge provides a set of composable tools for building AI training datasets. 
 
 ## Installation
 
-### Prerequisites
+### Option 1: Standalone Binary (Recommended for MCP)
+
+[![Build](https://github.com/HaoNaN9279/data_forge/actions/workflows/build.yml/badge.svg)](https://github.com/HaoNaN9279/data_forge/actions/workflows/build.yml)
+
+Download the latest release binary from the [Releases page](https://github.com/HaoNaN9279/data_forge/releases):
+
+| Platform | File |
+|---|---|
+| Windows x64 | `data-forge-windows-x64.exe` |
+| Linux x64 | `data-forge-linux-x64` |
+| macOS x64 | `data-forge-macos-x64` |
+
+**No Python or dependencies required.** Just download, make executable (Linux/macOS), and configure your MCP client:
+
+```json
+{
+  "mcpServers": {
+    "data-forge": {
+      "command": "/path/to/data-forge-windows-x64.exe"
+    }
+  }
+}
+```
+
+### Option 2: Python (uv)
+
+#### Prerequisites
 
 - Python >= 3.12
 - [uv](https://docs.astral.sh/uv/) (recommended) or pip
 
-### Using uv (recommended)
+#### Using uv (recommended)
 
 ```bash
 git clone https://github.com/HaoNaN9279/DataForge.git
@@ -39,7 +65,7 @@ uv sync --extra opencv   # OpenCV backend
 uv sync --extra pillow   # Pillow backend
 ```
 
-### Using pip
+#### Using pip
 
 ```bash
 pip install -e .
@@ -177,7 +203,11 @@ DataForge/
 │       └── resources/    # API keys, ComfyUI workflows (git-ignored)
 ├── tests/                # pytest test suite
 ├── pyproject.toml        # Project metadata and dependencies
+├── data-forge.spec       # PyInstaller packaging spec
+├── hook-mcp.py           # PyInstaller hook for mcp package
+├── build.md              # Build and packaging guide
 ├── AGENTS.md             # AI agent usage guidelines
+├── .github/workflows/    # CI build and release pipeline
 └── README.md
 ```
 
