@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "data-forge"
-version = "0.2.0"
+version = "0.2.1"
 description = "AI training data pipeline toolkit — MCP server + CLI for image processing, caption management, LLM integration, and ComfyUI."
 readme = "README.md"
 license = { text = "MIT" }
