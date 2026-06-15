@@ -24,6 +24,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from data_forge.tools._alpha import _parse_hex_color
 from mcp.server.fastmcp import FastMCP
 
 # ── FastMCP server instance ────────────────────────────────────────────────
@@ -84,6 +85,120 @@ def resize_images(
         return _err("Invalid parameters", str(e))
     except Exception as e:
         return _err("Resize failed", str(e))
+
+
+# ── Convert ─────────────────────────────────────────────────────────────────
+
+@mcp.tool()
+def convert_image(
+    input_path: str,
+    output_path: str,
+    background_color: str = "#FFFFFF",
+) -> dict[str, Any]:
+    """Convert a single image to another format (PNG, JPG, WebP, BMP)."""
+    try:
+        from data_forge.tools.convert import convert_image as _convert
+
+        result = _convert(
+            input_path,
+            output_path,
+            background_color=_parse_hex_color(background_color),
+        )
+        return _ok("Image converted", output=str(result))
+    except FileNotFoundError as e:
+        return _err("Input file not found", str(e))
+    except ValueError as e:
+        return _err("Invalid parameters", str(e))
+    except Exception as e:
+        return _err("Conversion failed", str(e))
+
+
+@mcp.tool()
+def convert_images(
+    input_dir: str,
+    output_dir: str,
+    output_format: str,
+    background_color: str = "#FFFFFF",
+    overwrite: bool = False,
+) -> dict[str, Any]:
+    """Convert all images in a directory to another format."""
+    try:
+        from data_forge.tools.convert import convert_images as _convert_batch
+
+        results = _convert_batch(
+            input_dir,
+            output_dir,
+            output_format,
+            background_color=_parse_hex_color(background_color),
+            overwrite=overwrite,
+        )
+        return _ok(
+            f"Converted {len(results)} images",
+            count=len(results),
+            files=_format_paths(results),
+        )
+    except FileNotFoundError as e:
+        return _err("Input directory not found", str(e))
+    except ValueError as e:
+        return _err("Invalid parameters", str(e))
+    except Exception as e:
+        return _err("Batch conversion failed", str(e))
+
+
+# ── Fill Background ─────────────────────────────────────────────────────────
+
+@mcp.tool()
+def fill_background(
+    input_path: str,
+    output_path: str,
+    background_color: str = "#FFFFFF",
+) -> dict[str, Any]:
+    """Fill transparent areas of a single image with a background colour."""
+    try:
+        from data_forge.tools.fill_background import fill_background as _fill
+
+        result = _fill(
+            input_path,
+            output_path,
+            background_color=_parse_hex_color(background_color),
+        )
+        return _ok("Background filled", output=str(result))
+    except FileNotFoundError as e:
+        return _err("Input file not found", str(e))
+    except ValueError as e:
+        return _err("Invalid parameters", str(e))
+    except Exception as e:
+        return _err("Fill background failed", str(e))
+
+
+@mcp.tool()
+def fill_background_batch(
+    input_dir: str,
+    output_dir: str,
+    background_color: str = "#FFFFFF",
+    overwrite: bool = False,
+) -> dict[str, Any]:
+    """Fill transparent areas of all images in a directory with a background colour."""
+    try:
+        from data_forge.tools.fill_background import fill_background_batch as _fill_batch
+
+        results = _fill_batch(
+            input_dir,
+            output_dir,
+            background_color=_parse_hex_color(background_color),
+            overwrite=overwrite,
+        )
+        return _ok(
+            f"Background filled for {len(results)} images",
+            count=len(results),
+            files=_format_paths(results),
+        )
+    except FileNotFoundError as e:
+        return _err("Input directory not found", str(e))
+    except ValueError as e:
+        return _err("Invalid parameters", str(e))
+    except Exception as e:
+        return _err("Batch fill background failed", str(e))
 
 
 # ── Background Removal ─────────────────────────────────────────────────────

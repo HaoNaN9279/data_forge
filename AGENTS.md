@@ -13,7 +13,7 @@ DataForge is a Python toolkit for building AI training datasets. It provides too
 - Browse `src/data_forge/tools/` to find available tools.
 - Each tool module exposes functions with descriptive names and type hints.
 - Check each tool's docstring for usage instructions, parameter descriptions, and examples.
-- Available tools: `caption`, `comfyui`, `llm`, `ollama`, `remove_bg`, `resize`.
+- Available tools: `caption`, `comfyui`, `convert`, `fill_background`, `llm`, `ollama`, `remove_bg`, `resize`.
 
 ### MCP Tool Server
 
