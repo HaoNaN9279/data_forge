@@ -32,7 +32,7 @@ Tools are plain Python functions. Import and call them directly:
 ```python
 from data_forge.tools.resize import resize_images
 
-result = resize_images(input_dir="photos/", output_dir="resized/", width=1024, height=1024)
+result = resize_images(input_dir="/path/to/photos/", output_dir="/path/to/resized/", width=1024, height=1024)
 ```
 
 Alternatively, invoke via CLI:

@@ -135,7 +135,7 @@ All tools return structured JSON with `status` ("ok"/"error"), `message`, and to
 # --- Caption editor ---
 from data_forge.tools.caption import CaptionEditor
 
-editor = CaptionEditor("captions/")
+editor = CaptionEditor("/path/to/captions/")
 editor.create("img01.txt", "a cat sitting on a windowsill")
 results = editor.search("cat")
 editor.replace("cat", "kitten")
@@ -144,30 +144,30 @@ stats = editor.stats()
 # --- Image resize ---
 from data_forge.tools.resize import resize_images
 
-resize_images("raw_images/", "resized/", 1024, 1024, pad_to_fit=True)
+resize_images("/path/to/raw_images/", "/path/to/resized/", 1024, 1024, pad_to_fit=True)
 
 # --- Background removal ---
 from data_forge.tools.remove_bg import remove_background, remove_background_batch
 
-remove_background("photo.jpg", "cutout.png", model="birefnet-general")
-remove_background_batch("photos/", "cutouts/")
+remove_background("/path/to/photo.jpg", "/path/to/cutout.png", model="birefnet-general")
+remove_background_batch("/path/to/photos/", "/path/to/cutouts/")
 
 # --- LLM image description ---
 from data_forge.tools.llm import describe_image, batch_describe_images
 
-desc = describe_image("photo.jpg", keyfile="keys.json", provider="openai", model="gpt-4o")
-batch_describe_images("images/", "captions/", keyfile="keys.json", provider="openai", model="gpt-4o")
+desc = describe_image("/path/to/photo.jpg", keyfile="/path/to/keys.json", provider="openai", model="gpt-4o")
+batch_describe_images("/path/to/images/", "/path/to/captions/", keyfile="/path/to/keys.json", provider="openai", model="gpt-4o")
 
 # --- Local Ollama inference ---
 from data_forge.tools.ollama import generate_text, describe_image
 
 text = generate_text("Explain this image", model="llama3.2")
-desc = describe_image("photo.jpg", model="llava")
+desc = describe_image("/path/to/photo.jpg", model="llava")
 
 # --- ComfyUI image generation ---
 from data_forge.tools.comfyui import run_workflow, run_batch
 
-run_workflow("http://127.0.0.1:8188", "workflow.json", "output/")
+run_workflow("http://127.0.0.1:8188", "/path/to/workflow.json", "/path/to/output/")
 ```
 
 ### End-to-End Pipeline Example
@@ -178,12 +178,12 @@ from pathlib import Path
 from data_forge.tools.comfyui import ComfyUIClient, _load_workflow, _deep_merge
 
 client = ComfyUIClient("http://127.0.0.1:8188")
-workflow = _load_workflow("flux2-klein_t2i.json")
+workflow = _load_workflow("/path/to/flux2-klein_t2i.json")
 
-for prompt_file in Path("prompts/").glob("*.txt"):
+for prompt_file in Path("/path/to/prompts/").glob("*.txt"):
     prompt_text = prompt_file.read_text().strip()
     wf = _deep_merge(workflow, {"88": {"inputs": {"string": prompt_text}}})
-    client.run(wf, f"output/{prompt_file.stem}")
+    client.run(wf, f"/path/to/output/{prompt_file.stem}")
 ```
 
 ## Project Structure
